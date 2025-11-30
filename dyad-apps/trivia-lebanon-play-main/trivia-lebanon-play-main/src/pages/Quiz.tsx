@@ -57,14 +57,18 @@ const Quiz = () => {
   const loadQuestion = async () => {
     setLoading(true);
     try {
+      // Fetch a list of questions ordered by creation date, then use the first one
       const { data, error } = await supabase
         .from("questions")
         .select("*")
-        .limit(1)
-        .single();
+        .order("created_at", { ascending: true })
+        .limit(1);
 
       if (error) throw error;
-      setQuestion(data);
+
+      // data is an array; set the first item or null when none are returned
+      const rows = data as Question[] | null;
+      setQuestion(rows?.[0] ?? null);
     } catch (error) {
       toast.error("Failed to load question");
     } finally {
