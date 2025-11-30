@@ -28,18 +28,7 @@ All colors MUST be HSL.
     --muted-foreground: 0 0% 60%;
 
     --accent: 210 100% 50%;
-  }
 
-  /* Force LTR layout globally */
-  * {
-    direction: ltr;
-    text-align: left;
-  }
-
-  html,
-  body {
-    direction: ltr !important;
-  }
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 85% 60%;
@@ -50,9 +39,11 @@ All colors MUST be HSL.
     --ring: 210 100% 50%;
 
     --radius: 1rem;
-    
-    --neon-glow: 0 0 20px hsl(210 100% 50% / 0.5), 0 0 40px hsl(210 100% 50% / 0.3);
-    --neon-glow-strong: 0 0 30px hsl(210 100% 50% / 0.8), 0 0 60px hsl(210 100% 50% / 0.5);
+
+    --neon-glow: 0 0 20px hsl(210 100% 50% / 0.5),
+      0 0 40px hsl(210 100% 50% / 0.3);
+    --neon-glow-strong: 0 0 30px hsl(210 100% 50% / 0.8),
+      0 0 60px hsl(210 100% 50% / 0.5);
 
     --sidebar-background: 0 0% 98%;
 
@@ -71,6 +62,16 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Force LTR layout globally */
+  * {
+    direction: ltr;
+    text-align: left;
+  }
+
+  html,
+  body {
+    direction: ltr !important;
+  }
 }
 
 @layer base {
@@ -80,11 +81,17 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', 'Inter', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Orbitron", "Inter", sans-serif;
     font-weight: 700;
   }
 }
@@ -93,11 +100,11 @@ All colors MUST be HSL.
   .neon-glow {
     box-shadow: var(--neon-glow);
   }
-  
+
   .neon-glow-strong {
     box-shadow: var(--neon-glow-strong);
   }
-  
+
   .text-neon {
     color: hsl(var(--primary));
     text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
@@ -105,16 +112,19 @@ All colors MUST be HSL.
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px hsl(210 100% 50% / 0.3);
   }
   50% {
-    box-shadow: 0 0 40px hsl(210 100% 50% / 0.6), 0 0 60px hsl(210 100% 50% / 0.3);
+    box-shadow: 0 0 40px hsl(210 100% 50% / 0.6),
+      0 0 60px hsl(210 100% 50% / 0.3);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
