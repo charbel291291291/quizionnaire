@@ -39,11 +39,14 @@ type PurchaseInsert = {
   user_id: string;
   package_id: string | number;
   coins_purchased: number;
+  coins_spent: number; // Add this field, set to 0 for purchases
   amount_paid: number;
   currency: string;
   payment_method: string;
   payment_reference: string | null;
   status: string;
+  service_name: string;
+  service_type: string;
 };
 
 const PurchaseCoins = () => {
@@ -81,20 +84,22 @@ const PurchaseCoins = () => {
 
     setProcessing(true);
     const totalCoins = selectedPackage.coins + selectedPackage.bonus;
-
     try {
-      // Create purchase record
-      const { error: purchaseError } = await supabase
-        .from("purchases")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: purchaseError } = await (supabase as any)
+        .from('purchases')
         .insert({
           user_id: userId,
           package_id: selectedPackage.id,
           coins_purchased: totalCoins,
+          coins_spent: 0,
           amount_paid: selectedPackage.price,
           currency: selectedPackage.currency,
           payment_method: paymentMethod,
           payment_reference: paymentReference || null,
           status: "completed",
+          service_name: selectedPackage.name,
+          service_type: "coin_purchase",
         } as PurchaseInsert);
 
       if (purchaseError) throw purchaseError;

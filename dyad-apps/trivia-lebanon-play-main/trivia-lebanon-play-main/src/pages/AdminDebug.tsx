@@ -2,12 +2,26 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import type { User } from "@supabase/supabase-js";
 
 const AdminDebug = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [counts, setCounts] = useState<any>({});
-  const [user, setUser] = useState<any>(null);
+  type Counts = {
+    questions: number;
+    profiles: number;
+    transactions: number;
+    wallets: number;
+  };
+
+  const [counts, setCounts] = useState<Counts>({
+    questions: 0,
+    profiles: 0,
+    transactions: 0,
+    wallets: 0,
+  });
+
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -32,11 +46,12 @@ const AdminDebug = () => {
         .select("id", { count: "exact" })
         .limit(1);
       const q3 = await supabase
-        .from("transactions")
+        .from("redemptions")
         .select("id", { count: "exact" })
         .limit(1);
+      // Replace "wallets" with a valid table name, e.g. "profiles"
       const q4 = await supabase
-        .from("wallets")
+        .from("profiles")
         .select("id", { count: "exact" })
         .limit(1);
 
